@@ -9,7 +9,7 @@ services:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
       - POSTGRES_DB=wormhole
-    values:
+    volumes:
       - ./postgres-data:/bitnami/postgresql
 
 volumes:
