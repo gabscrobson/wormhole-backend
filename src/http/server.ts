@@ -5,13 +5,22 @@ import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import {z} from 'zod';
 import { randomUUID } from "crypto";
 import { PrismaClient } from "@prisma/client";
+import { cleanupFiles } from "../fileCleanup";
+import { env } from "../env";
+import fastifyCors from "@fastify/cors";
 
 const app = fastify();
+
+app.register(fastifyCors, {
+  origin: true,
+});
 
 const prisma = new PrismaClient()
 
 // POST /uploads
 app.post('/uploads', async (request) => {
+    console.log('⭐ POST /uploads')
+
     const uploadBodySchema = z.object({
       name: z.string().min(1),
       contentType: z.string().regex(/\w+\/[-+. \w]+/),
@@ -24,7 +33,7 @@ app.post('/uploads', async (request) => {
     const signedUrl = await getSignedUrl(
       r2,
       new PutObjectCommand({
-        Bucket: 'wormhole-dev',
+        Bucket: env.CLOUDFLARE_BUCKET_NAME,
         Key: fileKey,
         ContentType: contentType,
       }),
@@ -46,6 +55,8 @@ app.post('/uploads', async (request) => {
 
 // GET /uploads/:id
 app.get('/uploads/:id', async (request) => {
+  console.log('⭐ GET /uploads/:id')
+
   const fileParamsSchema = z.object({
     id: z.string().cuid(),
   })
@@ -74,6 +85,8 @@ app.get('/uploads/:id', async (request) => {
 
 // GET /files/:id
 app.get('/files/:id', async (request) => {
+  console.log('⭐ GET /files/:id')
+
   const fileParamsSchema = z.object({
     id: z.string().cuid(),
   })
@@ -94,4 +107,7 @@ app.listen({
   host: '0.0.0.0'
 }).then(() => {
   console.log('🔥 HTTP server running!')
+
+  // Start file cleanup task
+  cleanupFiles()
 })
