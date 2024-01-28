@@ -16,4 +16,5 @@ model File {
   key         String
   contentType String
   createdAt   DateTime @default(now())
+  size        Int
 }
