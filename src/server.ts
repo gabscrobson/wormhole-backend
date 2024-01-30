@@ -13,6 +13,8 @@ const app = fastify();
 
 app.register(fastifyCors, {
   origin: true,
+  allowedHeaders: ['Origin', 'X-Requested-With', 'Accept', 'Content-Type', 'Authorization'],
+  methods: ['GET', 'PUT', 'PATCH', 'POST', 'DELETE']
 });
 
 const prisma = new PrismaClient()
