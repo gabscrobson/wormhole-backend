@@ -1,12 +1,12 @@
 import fastify from "fastify";
 import { GetObjectCommand, PutObjectCommand } from "@aws-sdk/client-s3";
-import { r2 } from "../lib/cloudfare";
+import { r2 } from "./lib/cloudfare";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import {z} from 'zod';
 import { randomUUID } from "crypto";
 import { PrismaClient } from "@prisma/client";
-import { cleanupFiles } from "../fileCleanup";
-import { env } from "../env";
+import { cleanupFiles } from "./utils/fileCleanup";
+import { env } from "./utils/env";
 import fastifyCors from "@fastify/cors";
 
 const app = fastify();

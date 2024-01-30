@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { r2 } from './lib/cloudfare'
+import { r2 } from '../lib/cloudfare'
 import { env } from './env'
 import { DeleteObjectCommand } from '@aws-sdk/client-s3'
 import * as cron from 'node-cron'
