@@ -4,7 +4,9 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "dev": "tsx watch --env-file .env src/http/server.ts"
+    "dev": "tsx watch --env-file .env src/http/server.ts",
+    "build": "tsc",
+    "start": "node dist/http/server.js"
   },
   "author": "Gabriel Accetta",
   "license": "ISC",
@@ -22,6 +24,7 @@
     "@types/node-cron": "^3.0.11",
     "prisma": "^5.8.1",
     "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
     "tsx": "^4.7.0",
     "typescript": "^5.3.3"
   }

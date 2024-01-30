@@ -74,7 +74,7 @@ app.get('/uploads/:id', async (request) => {
   const signedUrl = await getSignedUrl(
     r2,
     new GetObjectCommand({
-      Bucket: 'wormhole-dev',
+      Bucket: env.CLOUDFLARE_BUCKET_NAME,
       Key: file.key,
     }),
     {
