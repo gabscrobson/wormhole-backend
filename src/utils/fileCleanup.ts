@@ -22,24 +22,35 @@ export async function cleanupFiles() {
     }
   })
 
+  let promises = []
   // For each old file
   for (const file of oldFiles) {
-    // Delete from Cloudfare
-    await r2.send(new DeleteObjectCommand({
-      Bucket: env.CLOUDFLARE_BUCKET_NAME,
-      Key: file.key
-    }))
+    // Add a promise to the promises array
+    promises.push(deleteFile(file.key, file.id))
+  }
 
+  // Wait for all promises to resolve
+  await Promise.all(promises)
+}
+
+async function deleteFile(key: string, id: string) {
+  // Promise pool
+  await Promise.all([
+    // Delete from Cloudfare
+    r2.send(new DeleteObjectCommand({
+      Bucket: env.CLOUDFLARE_BUCKET_NAME,
+      Key: key
+    })),
     // Delete from database
-    await prisma.file.delete({
+    prisma.file.delete({
       where: {
-        id: file.id
+        id
       }
     })
+  ])
 
-    // Log deletion
-    console.log(`🧹 Deleted file ${file.id}`)
-  }
+  // Log deletion
+  console.log(`🧹 Deleted file ${id}`)
 }
 
 // Schedule cleanupFiles to run every 24 hours
