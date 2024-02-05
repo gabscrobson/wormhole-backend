@@ -1,7 +1,9 @@
 ## What is Wormhole?
 
-Wormhole is a quick and easy way to share files between devices. It can be used via the Web Application or the Desktop Widget, available for Windows, macOS, and Linux.
-The user can upload 1GB of files per day, and the files are stored for 24 hours. The user can also share the files with a QR code or a link.
+Wormhole is a quick and easy way to share files between devices. It can be used via the [Web Application](https://wormhole-web.vercel.app/) or the Desktop Widget, available for Windows, macOS, and Linux.
+The user can upload 1GB of files per day, and the files are stored for 24 hours. The user can also share the files with a QR code or a link.<br>
+Web Application Repository: https://github.com/gabscrobson/wormhole-web<br>
+Desktop Widget Repository: ...
 
 ## Requirements
 
