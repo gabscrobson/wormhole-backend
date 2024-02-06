@@ -20,6 +20,7 @@ Clone the repo and install the dependencies.
 ```bash
 git clone https://github.com/gabscrobson/wormhole-backend.git
 cd wormhole-backend
+npm install
 ```
 
 Start the docker container.
