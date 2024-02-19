@@ -68,7 +68,7 @@ app.post('/uploads', async (request) => {
       }
     })
 
-    return {signedUrl, id}
+    return {signedUrl, fileId: id}
 })
 
 // GET /uploads/:id
