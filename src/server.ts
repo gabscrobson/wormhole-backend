@@ -19,6 +19,17 @@ app.register(fastifyCors, {
 
 const prisma = new PrismaClient()
 
+// Function to generate a random ID
+function generateRandomID(): string {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  let randomID = '';
+  for (let i = 0; i < 7; i++) {
+      randomID += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return randomID;
+}
+
 // POST /uploads
 app.post('/uploads', async (request) => {
     console.log('⭐ POST /uploads')
@@ -45,8 +56,11 @@ app.post('/uploads', async (request) => {
       }
     )
 
+    const id = generateRandomID()
+
     const file = await prisma.file.create({
       data: {
+        id,
         name,
         contentType,
         key: fileKey,
@@ -54,7 +68,7 @@ app.post('/uploads', async (request) => {
       }
     })
 
-    return {signedUrl, fileId: file.id}
+    return {signedUrl, id}
 })
 
 // GET /uploads/:id
