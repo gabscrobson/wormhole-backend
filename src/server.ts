@@ -76,7 +76,7 @@ app.get('/uploads/:id', async (request) => {
   console.log('⭐ GET /uploads/:id')
 
   const fileParamsSchema = z.object({
-    id: z.string().cuid(),
+    id: z.string(),
   })
 
   const {id} = fileParamsSchema.parse(request.params)
@@ -106,7 +106,7 @@ app.get('/files/:id', async (request) => {
   console.log('⭐ GET /files/:id')
 
   const fileParamsSchema = z.object({
-    id: z.string().cuid(),
+    id: z.string().length(7),
   })
 
   const {id} = fileParamsSchema.parse(request.params)
